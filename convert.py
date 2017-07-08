@@ -12,8 +12,8 @@ def init(fname):
     if im.getbands()[0] != "L":
         im = im.convert("L")
     arr = mk_arr(im)
-    #if arr[10][10] > 200:
-        #im = ImageOps.invert(im)
+    #if arr[40][40] < 20:
+    im = ImageOps.invert(im)
     return im
 
 

@@ -41,7 +41,7 @@ def showImg(arr):
 
 
 def get_points(image):
-    return (70, 65, 430, 300) # x1, y1, x2, y2
+    return (50, 70, 490, 370) # x1, y1, x2, y2
 
 
 def detect(fname):
@@ -58,8 +58,8 @@ def light(copy, im):
     output_arr = np.array(im)
     for i in range(arr.shape[0]):
         for j in range(arr.shape[1]):
-            output_arr[i + t[1]][j + t[0]][0] = arr[i][j]
-            output_arr[i + t[1]][j + t[0]][1] += arr[i][j]
+            output_arr[i + t[1]][j + t[0]][0] = min(255, int(output_arr[i + t[1] ][j + t[0] ][0]) + int(arr[i][j]))
+            output_arr[i + t[1]][j + t[0]][1] = min(255, int(output_arr[i + t[1]][j + t[0]][1]) + int(arr[i][j]))
 
     im = Image.fromarray(output_arr)
     im.show()
@@ -67,7 +67,7 @@ def light(copy, im):
 
 
 if __name__ == "__main__":
-    fname = "37.png"
-    im = Image.open(fname)
+    fname = "s.png"
+    im = Image.open(fname).convert("RGB")
     #showImg(detect(fname))
-    light(detect(fname), im).save("output.png")
+    light(detect(fname), im).save("output1.png")
