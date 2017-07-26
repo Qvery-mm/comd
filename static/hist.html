@@ -1,0 +1,102 @@
+<head>
+    <meta charset="utf-8">
+   <link rel="stylesheet" href="/static/stylesheet.css" type="text/css" charset="utf-8" />
+   <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+
+
+<style type="text/css">
+	.view{
+		width: 100px;
+		background-color: #D19FBC;
+	}
+
+	#container{
+       display: flex;
+        height: 80%;
+        width: 50%;
+        margin: 0 auto;
+        justify-content: flex-end;
+        margin-top: 7%;
+        align-items: flex-end;
+	}
+
+  #status {
+    position: fixed;
+    height: 40px;
+    width: 40px;
+    background-color: red;
+    border-radius: 200px;
+    top: 20px;
+    right: 60px;
+    opacity: 0.2;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		s = ""
+		for(i = 0; i < 256; i++){
+			s+="<div class='view' id='" + i + "'></div>"
+
+		}
+
+		$('#container').html(s)
+	})
+
+	window.set_histo = function(t){
+		for(i = 0; i < t.length; i++){
+			$('#'+i).css({'height':t[i]+'%'});
+		}
+	}
+
+
+	$(document).ready(function () {
+        var host = prompt("ip");
+          var port = "8888";
+          var uri = "/ws";
+
+          // create websocket instance
+          window.ws = new WebSocket("ws://" + host + ":" + port + uri);
+
+          // Handle incoming websocket message callback
+          window.ws.onmessage = function(evt) {
+                z = JSON.parse(evt.data)
+
+
+
+            if(z.type == "histogram") {
+                set_histo(z.stat);
+             }
+
+            };
+
+          // Close Websocket callback
+          window.ws.onclose = function(evt) {
+              $('#status').css('background-color', 'red');
+            };
+
+          // Open Websocket callback
+          window.ws.onopen = function(evt) {
+           $('#status').css('background-color', 'green');
+
+          };
+
+
+        // Send websocket message function
+        //$("#send").click(function(evt) {
+          //  ws.send($("#message").val());
+        //});
+
+      });
+
+
+</script>
+
+<div id="status"></div>
+ <div id="container">
+ 
+
+ </div>
+
+ </body>

@@ -1,0 +1,113 @@
+<form enctype="multipart/form-data" action="/" method="post" id="form1">
+<head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="/static/stylesheet.css" type="text/css" charset="utf-8" />
+   <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+   <script type="text/javascript">
+
+
+      window.setprocent = function(p){
+      	$("#progress_bar").animate({"width": p+'%'});
+      }
+   </script>
+   <style type="text/css">
+      body, input, button{
+      font-family: 'cera_round_pro_demomedium';
+      color: #965D80;
+      }
+      input[type="text"]{
+      width: 100%;
+      border: 0;
+      background-color: #F5E0E8;
+      /*								color: white;
+      */								padding: 10px 20px;
+      font-size: 20px;
+      outline: none;
+      border-radius: 3px;
+      }
+      .namet{ 
+      padding: 10px 30px;
+      width: 260px;
+      box-sizing: border-box;
+      }
+      span{    padding: 10px;
+      font-size: 13px;
+      border-radius: 37px;
+      width: 13px;
+      background-color: #D09EBB;
+      height: 13px;
+      display: flex;
+      justify-content: center;
+      color: white;
+      }
+      button{border: none; outline: none;}
+      div{
+      box-sizing: border-box;
+      }
+   </style>
+</head>
+<body style="text-align: center; padding: 100px;  ">
+   <img src="static/logo.svg" width="100px" style="">
+   <div style="border: 5px solid #F5E0E8; padding: 20px; width: 600px; max-width: 100%;    margin: 54px auto; margin-bottom: 0; ">
+      <table>
+         <tr>
+            <td><span class="count">1</span>
+            <td class="namet">Имя</td>
+            <td style="width: 100%;"><input type="text" name="name"></td>
+            </td>
+         </tr>
+         <tr>
+            <td><span class="count">2</span>
+            <td class="namet">Возраст</td>
+            <td style="width: 100%;"><input type="text" name="age"></td>
+            </td>
+         </tr>
+         <tr>
+            <td><span class="count">3</span>
+            <td class="namet">Пол</td>
+            <td style="width: 100%;">
+               <input type="radio" name="gender" value="M" id='M'><label >Муж</label><br>
+               <input type="radio" name="gender" value="F" id='F'><label >Жен</label><br>
+            </td>
+            </td>
+         </tr>
+         <!--<tr>-->
+            <!--<td><span class="count">4</span>-->
+            <!--<td class="namet">Экология города</td>-->
+            <!--<td style="width: 100%; padding: 10px 0">-->
+               <!--<input type="radio" name="eco" value="good" id='good'><label for='good'>Хорошая</label><br>-->
+               <!--<input type="radio" name="eco" value="bad" id='bad'><label for='bad'>Плохая</label><br>-->
+               <!--<input type="radio" name="eco" value = "ok" id='ok'><label for='ok'>Средне</label><br>-->
+            <!--</td>-->
+            <!--</td>-->
+         <!--</tr>-->
+         <tr>
+            <td><span class="count">5</span>
+            <td class="namet">Курение</td>
+            <td style="width: 100%; padding: 10px 0">
+               <input type="radio" name="smoking" value="no" id='no'><label for='no'>Не курит</label><br>
+               <input type="radio" name="smoking" value="yes" id='yes'><label for='yes'>Курит</label><br>
+
+            </td>
+            </td>
+         </tr>
+         <tr>
+            <td><span class="count">6</span>
+            <td class="namet">Снимок</td>
+            <td style="width: 100%;"><input type="file" name="file"></td>
+            </td>
+         </tr>
+         </tr>
+      </table>
+      <button type="submit" style="background-color: #965D80; color: white; border-radius: 100px; font-size: 30px;     font-size: 20px;
+         padding: 10px 25px;">Анализ</button>
+   </div>
+   <div style="border: 5px solid #F5E0E8; width: 600px; max-width: 100%;    margin: 20px auto; margin-top: -5px;">
+      <div id="progress_bar" style="
+         background-color: #F5E0E8;
+         position: relative;
+         height: 20px;
+         "></div>
+   </div>
+</body>
+</form>

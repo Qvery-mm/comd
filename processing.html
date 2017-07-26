@@ -1,0 +1,160 @@
+<head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" href="/static/stylesheet.css" type="text/css" charset="utf-8" />
+   <script src="/static/jquery.js" type="text/javascript" charset="utf-8"></script>
+   <script type="text/javascript">
+   $(document).ready(function () {
+        var host = "10.23.45.65";
+          var port = "8888";
+          var uri = "/ws";
+
+          // create websocket instance
+          window.ws = new WebSocket("ws://" + host + ":" + port + uri);
+
+          // Handle incoming websocket message callback
+          window.ws.onmessage = function(evt) {
+                z = JSON.parse(evt.data)
+
+
+
+             if(z.type == "processing"){
+                 window.setprocent(z.stat);
+                 //document.getElementById('txt1').innerHTML = z.stat;
+             }
+             else if(z.type == "finish") {
+             window.setprocent(100);
+             document.getElementById('txt1').innerHTML = z.verdict;
+             document.getElementById('txt2').innerHTML = z.prediction.smoking + " %";
+             document.getElementById('txt3').innerHTML = z.prediction.age + " %";
+             document.getElementById('txt4').innerHTML = z.prediction.gender + " %";
+             document.getElementById('txt5').innerHTML = z.cap + " %";
+             }
+
+             else if(z.type == "histogram") {
+
+             }
+
+            };
+
+          // Close Websocket callback
+          window.ws.onclose = function(evt) {
+                       $('#status').css('background-color', 'red');
+
+            //document.getElementById('txt1').innerHTML = "close";
+            };
+
+          // Open Websocket callback
+          window.ws.onopen = function(evt) {
+           $('#status').css('background-color', 'green');
+            window.ws.send("start");
+
+            //document.getElementById('txt1').innerHTML = "open"
+          };
+
+
+        // Send websocket message function
+        //$("#send").click(function(evt) {
+          //  ws.send($("#message").val());
+        //});
+
+      });
+
+
+      window.setprocent = function(p){
+      	$("#progress_bar").animate({"width": p+'%'});
+      }
+   </script>
+   <style type="text/css">
+      body, input, button{
+      font-family: 'cera_round_pro_demomedium';
+      color: #965D80;
+      font-size: 20px;
+      }
+      input[type="text"]{
+      width: 100%;
+      border: 0;
+      background-color: #F5E0E8;
+      /*								color: white;
+      */								padding: 10px 20px;
+      font-size: 20px;
+      outline: none;
+      border-radius: 3px;
+      }
+      .namet{
+      padding: 10px 30px;
+     /* width: 260px; */
+      box-sizing: border-box;
+      }
+      span{    padding: 10px;
+      font-size: 13px;
+      border-radius: 37px;
+      width: 13px;
+      background-color: #D09EBB;
+      height: 13px;
+      display: flex;
+      justify-content: center;
+      color: white;
+      }
+      button{border: none; outline: none;}
+      div{
+      box-sizing: border-box;
+      }
+
+       #status {
+            position: fixed;
+            height: 40px;
+            width: 40px;
+            background-color: red;
+            border-radius: 200px;
+            top: 20px;
+            right: 60px;
+            opacity: 0.2;
+        }
+
+   </style>
+</head>
+<body style="text-align: center; padding: 100px;  ">
+<div id="status"></div>
+
+   <img src="static/logo.svg" width="100px" style="">
+   <div style="border: 5px solid #F5E0E8; padding: 20px; width: 600px; max-width: 100%;    margin: 54px auto; margin-bottom: 0; ">
+       <div style="font-size: 70px;" id='txt5'>  </div>
+      <table>
+
+
+         <tr>
+             <td class="namet"><b>Результат анализа снимка: </b> </td>
+             <td> <div id='txt1'></div>  </td>
+
+         </tr>
+          <tr>
+              <td class="namet"><b>Предрасположенность к возникновению рака </b></td>
+              <td>  </td>
+         </tr>
+          <tr>
+              <td class="namet">по курению:</td>
+              <td>  <div id='txt2'></div> </td>
+         </tr>
+          <tr>
+              <td class="namet">по возрасту:</td>
+              <td>  <div id='txt3'></div> </td>
+         </tr>
+          <tr>
+              <td class="namet">по полу:</td>
+              <td>  <div id='txt4'></div> </td>
+         </tr>
+
+      </table>
+       <br>
+       <br>
+      <a href='/' style="background-color: #965D80; color: white; border-radius: 100px; font-size: 30px;     font-size: 20px;
+         padding: 10px 25px; text-decoration: none; margin-top:30px;">Новое тестирование</a>
+   </div>
+   <div style="border: 5px solid #F5E0E8; width: 600px; max-width: 100%;    margin: 20px auto; margin-top: -5px;">
+      <div id="progress_bar" style="
+         background-color: #F5E0E8;
+         position: relative;
+         height: 20px;
+         "></div>
+   </div>
+</body>
